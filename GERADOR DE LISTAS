@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Lista - Dark Theme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --error-bg: #42210b;
+            --error-text: #ffab91;
+            --success-bg: #1b4332;
+            --success-text: #80ffdb;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+        
+        .container {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--bg-tertiary);
+        }
+        
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .description {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        label {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        input {
+            padding: 12px 15px;
+            background-color: var(--bg-tertiary);
+            border: 2px solid #3d3d3d;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            color: var(--text-primary);
+        }
+        
+        input:focus {
+            border-color: #ffffff;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        input::placeholder {
+            color: #666;
+        }
+        
+        button {
+            background: #ffffff;
+            color: #121212;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            background: #e0e0e0;
+        }
+        
+        #mensagem {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .mensagem-erro {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            border-left: 4px solid var(--error-text);
+        }
+        
+        .lista-container {
+            margin-top: 20px;
+            text-align: left;
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #ffffff;
+        }
+        
+        .lista-container h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        ol {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            padding: 8px 0;
+            color: var(--text-primary);
+            border-bottom: 1px solid #3d3d3d;
+            transition: all 0.2s;
+        }
+        
+        li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding-left: 5px;
+        }
+        
+        li:last-child {
+            border-bottom: none;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid #3d3d3d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: #ffffff;
+            color: #121212;
+            transform: rotate(30deg);
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" title="Alternar tema">
+        <span>🌙</span>
+    </div>
+    
+    <div class="container">
+        <h1>Gerador de Lista</h1>
+        <p class="description">Digite um número para gerar uma lista numerada com seu nome.</p>
+        
+        <div class="input-group">
+            <label for="numero">Digite um número:</label>
+            <input type="number" id="numero" placeholder="Ex: 5" min="1" max="20">
+            <button id="btnGerar">Gerar Lista</button>
+        </div>
+        
+        <div id="mensagem">
+            <!-- Aqui será exibida a mensagem de erro ou a lista -->
+        </div>
+        
+        <div class="footer">
+            <p>Gerador de lista desenvolvido para trabalho da faculdade</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const numeroInput = document.getElementById('numero');
+            const btnGerar = document.getElementById('btnGerar');
+            const mensagemDiv = document.getElementById('mensagem');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            btnGerar.addEventListener('click', function() {
+                const numero = parseInt(numeroInput.value);
+                
+                
+                mensagemDiv.innerHTML = '';
+                mensagemDiv.className = '';
+                
+                if (isNaN(numero) || numero <= 0) {
+                    mensagemDiv.textContent = 'Por favor, insira um número válido.';
+                    mensagemDiv.className = 'mensagem-erro';
+                } else {
+                    
+                    const numeroLimitado = Math.min(numero, 20);
+                    
+                    
+                    const listaContainer = document.createElement('div');
+                    listaContainer.className = 'lista-container';
+                    
+                    const titulo = document.createElement('h3');
+                    titulo.textContent = `Lista com ${numeroLimitado} itens:`;
+                    listaContainer.appendChild(titulo);
+                    
+                    const lista = document.createElement('ol');
+                    
+                    for (let i = 1; i <= numeroLimitado; i++) {
+                        const item = document.createElement('li');
+                        item.textContent = `Item ${i} - Seu Nome`;
+                        lista.appendChild(item);
+                    }
+                    
+                    listaContainer.appendChild(lista);
+                    mensagemDiv.appendChild(listaContainer);
+                }
+            });
+            
+            
+            numeroInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    btnGerar.click();
+                }
+            });
+            
+            
+            let placeholderText = "Ex: 5";
+            let i = 0;
+            let typingSpeed = 100;
+            
+            function typePlaceholder() {
+                if (i < placeholderText.length) {
+                    numeroInput.placeholder += placeholderText.charAt(i);
+                    i++;
+                    setTimeout(typePlaceholder, typingSpeed);
+                }
+            }
+            
+            
+            setTimeout(() => {
+                numeroInput.placeholder = "";
+                typePlaceholder();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
