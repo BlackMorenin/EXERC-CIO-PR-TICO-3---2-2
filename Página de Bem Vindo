@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho de HTML CSS JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .description {
+            color: #999;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        label {
+            text-align: left;
+            font-weight: 600;
+            color: green;
+        }
+        
+        input {
+            padding: 12px 15px;
+            border: 2px solid #999;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #6e8efb;
+            outline: none;
+        }
+        
+        button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(110, 142, 251, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #mensagem {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .mensagem-vazia {
+            background-color: #ffeaa7;
+            color: #e17055;
+            border-left: 4px solid #e17055;
+        }
+        
+        .mensagem-sucesso {
+            background-color: #a3e4d7;
+            color: #1a7f5e;
+            border-left: 4px solid #1a7f5e;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo!</h1>
+        <p class="description">Digite seu nome no campo abaixo e clique no botão.</p>
+        <div class="input-group">
+            <label for="nome">Digite seu nome:</label>
+            <input type="text" id="nome" placeholder="Seu nome">
+            <button id="btnClique">Clique aqui</button>
+        </div>
+        
+        <div id="mensagem">
+            <!-- Seja muito bem vindo(a) ao nosso Campus -->
+        </div>
+        
+        <div class="footer">
+            <p>Universidade Estácio de Sá</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nomeInput = document.getElementById('nome');
+            const btnClique = document.getElementById('btnClique');
+            const mensagemDiv = document.getElementById('mensagem');
+            
+            btnClique.addEventListener('click', function() {
+                const nome = nomeInput.value.trim();
+                
+                if (nome === '') {
+                    mensagemDiv.textContent = 'Por favor, insira seu nome.';
+                    mensagemDiv.className = 'mensagem-vazia';
+                } else {
+                    mensagemDiv.innerHTML = `Olá, <strong>${nome}</strong>! Seja bem-vindo à página do aluno(a).`;
+                    mensagemDiv.className = 'mensagem-sucesso';
+                }
+            });
+            
+            // Adiciona funcionalidade de pressionar Enter para enviar
+            nomeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    btnClique.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
